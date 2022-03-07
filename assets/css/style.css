@@ -1,0 +1,24 @@
+/* navbar */
+nav .dropdown-menu{
+    overflow-x: auto!important;
+}
+
+/* hero section */
+@media screen and (max-width: 992px) {
+  .hero-section .row {
+    /* flex row reverse */
+    flex-direction: column-reverse !important;
+  }
+  .hero-section .hero-button-container {
+      max-width: 100%!important;
+  }
+  .hero-section__getstarted-btn {
+    width: 100%;
+  }
+  .hero-section h2{
+    font-size:2.1rem;
+  }
+  .hero-section p{
+    font-size:1.3rem;
+  }
+}
