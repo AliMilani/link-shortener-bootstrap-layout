@@ -590,13 +590,15 @@
                     //hande form-check switch checkbox
                     function handleDateCheckbox(checkbox) {
                       let dateBox = document.querySelector(".start-end-date")
-                      // let startDate = document.getElementById('start_date');
+                      let startDate = document.getElementById('start_date');
+                      let endDate = document.getElementById('end_date');
                       if (checkbox.checked) {
                         dateBox.style.display = "flex";
                         // startDate.value = new Date().toISOString().split(':',1).join(':');
                       } else {
                         dateBox.style.display = "none";
-                        startDate.value='';
+                        startDate.value = ''
+                        endDate.value = ''
                       }
                     }
                   </script>
