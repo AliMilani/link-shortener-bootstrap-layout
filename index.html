@@ -512,14 +512,13 @@
   </section>
   <!-- End center -->
 
-    <!-- Start shorten input section -->
-  <div class="bg-dark container rounded">
+  <!-- Start shorten input section -->
+  <div class="bg-dark  rounded">
     <section>
-      <div class="container py-4 mt-5">
+      <div class=" py-4 mt-5">
         <div class="row">
-          <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
-            <h3 class="text-center">Contact us</h3>
-            <form role="form" id="contact-form" method="post" autocomplete="off">
+          <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column" style="width: 500px">
+            <form role="form" id="contact-form" method="post" autocomplete="off" class="mt-5">
               <div class="card-body">
                 <div class="row">
                   <div class="mb-4">
@@ -529,13 +528,132 @@
                     </div>
                   </div>
                   <div class="col">
-                    <button type="submit"
-                      class="btn  w-100 btn-primary bg-gradient-faded-danger-vertical text-nowrap">Shorten <span class="fa fa-link"></span></button>
+                    <button type="submit" id="top-shorten-btn"
+                      class="btn Shorten-btn w-100 btn-primary bg-gradient-faded-danger-vertical text-nowrap">Shorten <span
+                        class="fa fa-link"></span></button>
+                  </div>
+                </div>
+                <p class="text-sm">By clicking SHORTEN, you are agreeing to _ Terms of Service and Privacy Policy
+                </p>
+                <!-- Start Advanced form with datepicker -->
+                <script>
+                  function collapseAdvancedOptions() {
+                    let advancedOptions = document.getElementById("advanced-options");
+                    let topShortenBtn= document.getElementById("top-shorten-btn");
+                    let bottomShortenBtn= document.getElementById("bottom-shorten-btn");
+                    if (advancedOptions.style.display === "none") {
+                      advancedOptions.style.display = "block";
+                      topShortenBtn.style.display = "none";
+                      bottomShortenBtn.style.display = "block";
+                    } else {
+                      advancedOptions.style.display = "none";
+                      topShortenBtn.style.display = "block";
+                      bottomShortenBtn.style.display = "none";
+                    }
+                  }
+                </script>
+                <!-- <button type="submit" class="btn  w-100 btn-primary bg-gradient-faded-danger-vertical text-nowrap">Shorten <span class="fa fa-link" aria-hidden="true"></span></button> -->
+                <div class="text-center">
+                  <a class="btn btn-lg text-primary arrowCenter" onclick="collapseAdvancedOptions()">Advanced Options
+                    <span class="fa fa-chevron-down"></span>
+                  </a>
+                </div>
+
+                <div class="row" id="advanced-options" style="display:none;">
+                  <div class="row p-0 m-0">
+                    <div class="col">
+                      <p class="text-white text-2xl px-2 m-0">slug :</p>
+                      <div class="input-group input-group-outline mb-2">
+                        <input placeholder="e.g. : shorted123" type="text" class="form-control bg-white" style="min-width: 75px;">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <p class="text-white text-2xl m-0"> Redirect code:</p>
+                        <input class="form-check-input bg-body" type="radio" name="flexRadioDefault" checked id="code302">
+                        <label class="custom-control-label text-light" for="customRadio1">302</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input bg-body" type="radio" name="flexRadioDefault" id="code301">
+                        <label class="custom-control-label text-light" for="customRadio2">301</label>
+                      </div>
+                      <!-- <div class="input-group input-group-static">
+                        <label for="exampleFormControlSelect2" class="text-white text-2xl px-2 ms-0">Redirect Code :</label>
+                        <select  class="form-control pb-0 bg-white p-0" id="exampleFormControlSelect2">
+                          <option selected>302</option>
+                          <option>301</option>
+                        </select>
+                      </div> -->
                     </div>
                   </div>
-                  <p class="text-sm">By clicking SHORTEN, you are agreeing to _ Terms of Service and Privacy Policy
-                  </p>
-            </form>
+                  <script>
+                    //hande form-check switch checkbox
+                    function handleDateCheckbox(checkbox) {
+                      let dateBox = document.querySelector(".start-end-date")
+                      // let startDate = document.getElementById('start_date');
+                      if (checkbox.checked) {
+                        dateBox.style.display = "flex";
+                        // startDate.value = new Date().toISOString().split(':',1).join(':');
+                      } else {
+                        dateBox.style.display = "none";
+                        startDate.value='';
+                      }
+                    }
+                  </script>
+                  <div class="form-check form-switch m-3">
+                    <label class="form-check-label text-white" for="date-check">start end date time</label>
+                    <input class="form-check-input bg-gray-500" type="checkbox" id="date-check"  onchange="handleDateCheckbox(this)">
+                  </div>
+
+                  <div class="row p-0 m-0 start-end-date" style="display: none;">
+                    <!-- <p class="text-white text-3xl px-2 m-0 text-center mb-1">Date Time</p>
+                    <hr> -->
+                    <div class="col">
+                      <p class="text-white text-2xl px-2 m-0">Start Date:</p>
+                      <div class="input-group input-group-static my-3">
+                        <input id="start_date" placeholder="place hoooldder" type="datetime-local" class="form-control bg-white rounded-3" style="border-radius: 5px !important; padding-left: 1rem;max-width: 200px;">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <p class="text-white text-2xl px-2 m-0">End Date:</p>
+                      <div class="input-group input-group-static my-3">
+                        <label for=""></label>
+                        <input id="end_date" placeholder="place hoooldder" type="datetime-local" class="form-control bg-white rounded-3" style="border-radius: 5px !important; padding-left: 1rem;max-width: 200px;">
+                      </div>
+                    </div>
+                  </div>
+                <button type="submit" id="bottom-shorten-btn" style="display: none;"
+                      class="btn  w-100 btn-primary bg-gradient-faded-danger-vertical text-nowrap mt-3">Shorten <span
+                        class="fa fa-link"></span>
+                </button>
+
+
+
+                <!-- <div class="container" id="advanced-options" style="display: none;">
+                 <div class="row">
+                   <div class="col-md-6">
+                      <label for="start_date" class="form-label form-check-label text-light">Start date</label>
+                      <input type="datetime-local" name="start_date" id="start_date" class="datepicker rounded ">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="end_date" class="form-label form-check-label text-light">End date</label>
+                      <input type="datetime-local" name="end_date" id="end_date" class="datepicker rounded ">
+                    </div>
+                 </div>
+                  <div class="row">
+                    <div class="col-md12">
+                      <button type="submit" id="bottom-shorten-btn"
+                      class="btn  w-100 btn-primary bg-gradient-faded-danger-vertical text-nowrap">Shorten <span
+                        class="fa fa-link"></span></button>
+                    </div>
+                  </div>
+                </div> -->
+
+
+              </div>
+                </div>
+                <!-- End Advanced form with datepicker -->
+              </form>
           </div>
         </div>
       </div>
@@ -543,6 +661,7 @@
     <!-- End Shorten input section -->
 
 
+    <!-- Start footer -->
   </div>
   <footer class="footer pt-5 mt-5">
     <div class="container">
@@ -724,6 +843,7 @@
       });
     }
   </script>
+  <script src="assets/js/plugins/flatpickr.min.js"></script>
 </body>
 
 </html>
