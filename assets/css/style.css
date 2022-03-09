@@ -22,3 +22,10 @@ nav .dropdown-menu{
     font-size:1.3rem;
   }
 }
+
+/* body card */
+@media screen and (min-width: 992px) {
+  .card-body .row {
+    flex-wrap: nowrap;
+  }
+}
