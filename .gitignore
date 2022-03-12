@@ -1,2 +1,5 @@
-material-kit-master
-tmp
+material-kit-master/
+tmp/
+about-us.html
+assets/js/script.js
+.gitignore
