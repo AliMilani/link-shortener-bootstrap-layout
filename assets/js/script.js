@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function showAlert(form, message, type, delay = 4500) {
     let alert = form.querySelector("#shortener-form .alert");
+    alert.scrollIntoView({ behavior: "smooth", block: "center" });
     alert.innerHTML = message;
     alert.classList.add(type);
     alert.style.display = "block";
@@ -223,7 +224,7 @@ if (shortenButtons) {
             }
         }
         let request = new XMLHttpRequest();
-        request.open("POST", "http://127.0.0.1:3900/api/links");
+            request.open("POST", "http://192.168.58.108:3900/api/links");
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader;
