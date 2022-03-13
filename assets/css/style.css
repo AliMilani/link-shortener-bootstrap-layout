@@ -29,3 +29,14 @@ nav .dropdown-menu{
     flex-wrap: nowrap;
   }
 }
+
+/* #recent-links */
+@media screen and (max-width: 992px) {
+  #recent-links .recent-links_box {
+    flex-direction: column;
+  }
+  .recent-links_box p{
+    width: auto !important;
+    margin-right: 40px !important;
+  }
+}

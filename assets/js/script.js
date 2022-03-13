@@ -55,9 +55,9 @@ function updateRecentLinks() {
 function appendLinkToDOM(ur, shorted) {
     let recentLinks = document.getElementById("recent-links");
     let template = `
-      <div class="position-relative col  my-1 rounded-2 d-flex justify-content-between p-2">
+      <div class="recent-links_box position-relative col  my-1 rounded-2 d-flex justify-content-between p-2">
           <p class="col-md-8 text-dark  px-2 m-0  w-40 text-truncate">${ur}</p>
-          <p class="col-md-8 text-dark  px-2 m-0  w-55 me-3 text-truncate"><a href="${shorted}" target="_blank">${shorted}</a></p>
+          <p class="col-md-8 text-dark  px-2 m-0  w-55 me-3 text-truncate"><a class="font-weight-bold" href="${shorted}" target="_blank">${shorted}</a></p>
           <a class="btn  opacity-9 btn-icon-only border-2 p-0 text-2xl  position-absolute top-0 end-1"  data-bs-toggle="tooltip" data-bs-placement="right" title="Copy shorted link" onclick="copyShortdURL(this)"><i class="fa fa-copy"></i></a>
         </div>
           <!--hr class="my-2"-->
