@@ -34,6 +34,15 @@ nav .dropdown-menu{
 #recent-links {
   --bs-gutter-x:0
 }
+
+#recent-links .recent-links_box {
+  border-bottom: 6px solid #e6e6e6;
+}
+
+#recent-links .recent-links_box:last-child {
+  border-bottom: 0;
+}
+
 @media screen and (max-width: 992px) {
   #recent-links .recent-links_box {
     flex-direction: column;
