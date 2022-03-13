@@ -1,7 +1,7 @@
-// on page load
 document.addEventListener("DOMContentLoaded", function () {
-    updateRecentLinks()
+    updateRecentLinks();
 });
+
 function showAlert(form, message, type, delay = 4500) {
     let alert = form.querySelector("#shortener-form .alert");
     alert.innerHTML = message;
@@ -40,9 +40,10 @@ function updateRecentLinks() {
     let shorted = readShortedFromStorage();
     console.log(shorted);
     let recentLinks = document.querySelector("#recent-links");
-    //if count of shorted les than 0 then display recntLinks none otherwise display block
     console.log(shorted.length);
-    (shorted.length > 0) ? recentLinks.parentElement.style.display = "block" : recentLinks.parentElement.style.display = "none";
+    shorted.length > 0
+        ? (recentLinks.parentElement.style.display = "block")
+        : (recentLinks.parentElement.style.display = "none");
     recentLinks.innerHTML = "";
     shorted.forEach(function (value) {
         value = JSON.parse(value);
@@ -60,29 +61,23 @@ function appendLinkToDOM(ur, shorted) {
         </div>
           <!--hr class="my-2"-->
       `;
-    recentLinks.insertAdjacentHTML('afterbegin', template);
+    recentLinks.insertAdjacentHTML("afterbegin", template);
 }
 
-
-// handle copy to clipboard
 function copyShortdURL(element) {
-    //get second p element value and copy to clipboard
     element.addEventListener("click", function (event) {
         let shortedURL = event.path.find(function (element) {
             return element.tagName === "DIV";
         }).children[1].innerText;
-        navigator.permissions.query({ name: "clipboard-write" }).then(result => {
-            if (result.state == "granted" || result.state == "prompt") {
-                navigator.clipboard.writeText(shortedURL);
-            }
-        });
+      navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+          if (result.state == "granted" || result.state == "prompt") {
+              navigator.clipboard.writeText(shortedURL);
+          }
+      });
 
-        // navigator.clipboard.writeText(shortedURL);
-    });
+      // navigator.clipboard.writeText(shortedURL);
+  });
 }
-
-//get all stored data
-// function getStoredData() {
 
 let shortenButtons = document.querySelectorAll(
     "#shortener-form button[type=submit]"
@@ -130,138 +125,134 @@ if (shortenButtons) {
             let isAdvanced =
                 document.querySelector("#advanced-options").style.display === "block";
 
-            //send post request to /api/links
-            let form = event.path.find((element) => element.tagName === "FORM");
+        let form = event.path.find((element) => element.tagName === "FORM");
 
-            let url = form.querySelector("input[name=url]");
-            //validate url input
-            if (url.value.length === 0) {
-                showAlert(
-                    form,
-                    alertMessages.urlEmpty.message,
-                    alertMessages.urlEmpty.type
-                );
-                return;
-            }
-            let urlRegex =
-                /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-            if (url.validity.valid === false || !urlRegex.test(url.value)) {
-                showAlert(
-                    form,
-                    alertMessages.urlInvalid.message,
-                    alertMessages.urlInvalid.type
-                );
-                return;
-            }
-            if (url.value.length > 255) {
-                showAlert(
-                    form,
-                    alertMessages.urlLength.message,
-                    alertMessages.urlLength.type
-                );
-                return;
-            }
-            let formBody = {
-                url: url.value,
-                advancedSettings: {},
-            };
-            let slug = form.querySelector("input[name=slug]");
-            let startDate = form.querySelector("input[name=start-date]");
-            let endDate = form.querySelector("input[name=end-date]");
-            let status301 = form.querySelector("input[id=code301]");
-            let password = form.querySelector("input[name=password]");
-            if (isAdvanced) {
-                if (slug.value !== "") {
-                    if (slug.value.length > 100) {
-                        showAlert(
-                            form,
-                            alertMessages.slugLong.message,
-                            alertMessages.slugLong.type
-                        );
-                        return;
-                    }
-                    if (slug.value.length < 3) {
-                        showAlert(
-                            form,
-                            alertMessages.slugShort.message,
-                            alertMessages.slugShort.type
-                        );
-                        return;
-                    }
-                    formBody.slug = slug.value;
-                }
-                if (startDate.value.length > 0 && endDate.value.length > 0) {
-                    let startDateValue = new Date(startDate.value);
-                    let endDateValue = new Date(endDate.value);
-                    if (startDateValue > endDateValue) {
-                        showAlert(
-                            form,
-                            alertMessages.dateStartAfter.message,
-                            alertMessages.dateStartAfter.type
-                        );
-                        return;
-                    }
-                    if (endDateValue < startDateValue) {
-                        showAlert(
-                            form,
-                            alertMessages.dateEndBefore.message,
-                            alertMessages.dateEndBefore.type
-                        );
-                        return;
-                    }
-                    formBody.advancedSettings.dateStart = startDate.value;
-                    formBody.advancedSettings.dateEnd = endDate.value;
-                }
-                if (password.value.length > 0) {
-                    if (password.value.length > 500) {
-                        showAlert(
-                            form,
-                            alertMessages.passwordLong.message,
-                            alertMessages.passwordLong.type
-                        );
-                        return;
-                    }
-                    //fix Cannot set properties of undefined (setting 'password')
-                    formBody.advancedSettings.password = password.value;
-                }
-
-                if (status301.checked) {
-                    formBody.advancedSettings.redirectCode = 301;
-                }
-            }
-            let request = new XMLHttpRequest();
-            request.open("POST", "http://127.0.0.1:3900/api/links");
-            request.setRequestHeader("Content-Type", "application/json");
-            request.setRequestHeader("Accept", "application/json");
-            request.setRequestHeader;
-            request.onload = function () {
-                if (request.status === 200) {
+        let url = form.querySelector("input[name=url]");
+        //validate url input
+        if (url.value.length === 0) {
+            showAlert(
+                form,
+                alertMessages.urlEmpty.message,
+                alertMessages.urlEmpty.type
+            );
+            return;
+        }
+        let urlRegex =
+            /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+        if (url.validity.valid === false || !urlRegex.test(url.value)) {
+            showAlert(
+                form,
+                alertMessages.urlInvalid.message,
+                alertMessages.urlInvalid.type
+            );
+            return;
+        }
+        if (url.value.length > 255) {
+            showAlert(
+                form,
+                alertMessages.urlLength.message,
+                alertMessages.urlLength.type
+            );
+            return;
+        }
+        let formBody = {
+            url: url.value,
+            advancedSettings: {},
+        };
+        let slug = form.querySelector("input[name=slug]");
+        let startDate = form.querySelector("input[name=start-date]");
+        let endDate = form.querySelector("input[name=end-date]");
+        let status301 = form.querySelector("input[id=code301]");
+        let password = form.querySelector("input[name=password]");
+        if (isAdvanced) {
+            if (slug.value !== "") {
+                if (slug.value.length > 100) {
                     showAlert(
                         form,
-                        alertMessages.success.message,
-                        alertMessages.success.type
+                        alertMessages.slugLong.message,
+                        alertMessages.slugLong.type
                     );
-                    url.value = "";
-                    if (isAdvanced) {
-                        slug.value = "";
-                        startDate.value = "";
-                        endDate.value = "";
-                        password.value = "";
-                    }
-                    writeShortedToStorage(request.response);
-                    console.log(JSON.parse(request.response));
-                    updateRecentLinks();
-
-                } else {
+                    return;
+                }
+                if (slug.value.length < 3) {
                     showAlert(
                         form,
-                        `Error: ${request.responseText} (Code: ${request.status})`,
-                        "alert-danger"
+                        alertMessages.slugShort.message,
+                        alertMessages.slugShort.type
                     );
+                    return;
                 }
-            };
-            request.send(JSON.stringify(formBody));
+                formBody.slug = slug.value;
+            }
+            if (startDate.value.length > 0 && endDate.value.length > 0) {
+                let startDateValue = new Date(startDate.value);
+                let endDateValue = new Date(endDate.value);
+                if (startDateValue > endDateValue) {
+                    showAlert(
+                        form,
+                        alertMessages.dateStartAfter.message,
+                        alertMessages.dateStartAfter.type
+                    );
+                    return;
+                }
+                if (endDateValue < startDateValue) {
+                    showAlert(
+                        form,
+                        alertMessages.dateEndBefore.message,
+                        alertMessages.dateEndBefore.type
+                    );
+                    return;
+                }
+                formBody.advancedSettings.dateStart = startDate.value;
+                formBody.advancedSettings.dateEnd = endDate.value;
+            }
+            if (password.value.length > 0) {
+                if (password.value.length > 500) {
+                    showAlert(
+                        form,
+                        alertMessages.passwordLong.message,
+                        alertMessages.passwordLong.type
+                    );
+                    return;
+                }
+            formBody.advancedSettings.password = password.value;
+        }
 
-        });
+            if (status301.checked) {
+                formBody.advancedSettings.redirectCode = 301;
+            }
+        }
+        let request = new XMLHttpRequest();
+        request.open("POST", "http://127.0.0.1:3900/api/links");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader;
+        request.onload = function () {
+            if (request.status === 200) {
+                showAlert(
+                    form,
+                    alertMessages.success.message,
+                    alertMessages.success.type
+                );
+                url.value = "";
+                if (isAdvanced) {
+                    slug.value = "";
+                    startDate.value = "";
+                    endDate.value = "";
+                    password.value = "";
+                }
+                writeShortedToStorage(request.response);
+                console.log(JSON.parse(request.response));
+                updateRecentLinks();
+            } else {
+                showAlert(
+                    form,
+                    `Error: ${request.responseText} (Code: ${request.status})`,
+                    "alert-danger"
+                );
+            }
+        };
+        request.send(JSON.stringify(formBody));
     });
+  });
 }
