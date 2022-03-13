@@ -30,7 +30,10 @@ nav .dropdown-menu{
   }
 }
 
-/* #recent-links */
+/* recent links */
+#recent-links {
+  --bs-gutter-x:0
+}
 @media screen and (max-width: 992px) {
   #recent-links .recent-links_box {
     flex-direction: column;
