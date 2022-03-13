@@ -140,7 +140,7 @@ if (shortenButtons) {
         }
         let urlRegex =
             /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-        if (url.validity.valid === false || !urlRegex.test(url.value)) {
+            if (!urlRegex.test(url.value)) {
             showAlert(
                 form,
                 alertMessages.urlInvalid.message,
