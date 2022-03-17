@@ -39,9 +39,7 @@ function clearStorage() {
 
 function updateRecentLinks() {
     let shorted = readShortedFromStorage();
-    console.log(shorted);
     let recentLinks = document.querySelector("#recent-links");
-    console.log(shorted.length);
     shorted.length > 0
         ? (recentLinks.parentElement.style.display = "block")
         : (recentLinks.parentElement.style.display = "none");
@@ -226,8 +224,7 @@ if (shortenButtons) {
         let request = new XMLHttpRequest();
             request.open("POST", "http://192.168.58.108:3900/api/links");
         request.setRequestHeader("Content-Type", "application/json");
-        request.setRequestHeader("Accept", "application/json");
-        request.setRequestHeader;
+            request.setRequestHeader("Accept", "application/json");
         request.onload = function () {
             if (request.status === 200) {
                 showAlert(
@@ -242,8 +239,11 @@ if (shortenButtons) {
                     endDate.value = "";
                     password.value = "";
                 }
+                document.getElementById("recent-links").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
                 writeShortedToStorage(request.response);
-                console.log(JSON.parse(request.response));
                 updateRecentLinks();
             } else {
                 showAlert(
